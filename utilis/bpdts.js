@@ -6,7 +6,7 @@ class Fetch {
    * @descrip Returns a list of Persons from the bpdts API
    * @returns {array} list of Persons
    */
-  async getPersons() {
+  static async getPersons() {
     return fetch("https://bpdts-test-app.herokuapp.com/users")
       .then(res => res.json())
       .catch(err => res.send(err));

@@ -1,0 +1,6 @@
+{
+    "utilisError" : {
+      "code": "00001",
+      "message": "Error retreiving data from utilis"
+    }
+  }
