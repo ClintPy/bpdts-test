@@ -13,7 +13,7 @@ const FIFTY_MILES_IN_METERS = 80467;
 let results;
 let londonPersons;
 
-class userController {
+const userController = {
   /**
    * @params {res}
    * @params {req}
@@ -21,11 +21,11 @@ class userController {
    * @descrpt Get all Persons Within London or 50 miles off London
    * @returns {array} Return a List of Persons living in London or 50 miles of London
    */
-  static async getEveryPersons(req, res, next) {
+  getEveryPersons: async (req, res, next) => {
     try {
       results = await bpdts.getPersons();
     } catch (err) {
-      createError(404);
+      return next(createError(404));
     }
 
     const persons = results;
@@ -49,15 +49,15 @@ class userController {
     // Now GET all persons who are living in London
 
     try {
-      londonPersons = await bpdts.getPersons();
+      londonPersons = await bpdts.getLondonPersons();
     } catch (err) {
-      createError(404);
+      return next(createError(404));
     }
 
     const EveryPersonInLondon = offLondon.concat(londonPersons);
 
     return res.status(200).send(EveryPersonInLondon);
   }
-}
+};
 
 module.exports = userController.getEveryPersons;
