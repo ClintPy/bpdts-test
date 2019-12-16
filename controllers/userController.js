@@ -1,7 +1,7 @@
 const geolib = require("geolib");
 const bpdts = require("../utilis/bpdts");
 
-const handleError = require("../errors/errors");
+const createError = require("http-errors");
 
 // London Coordinates
 const LONDON_COORDINATES = {
@@ -22,13 +22,11 @@ class userController {
    * @descrpt Get all Persons Within London or 50 miles off London
    * @returns {array} Return a List of Persons living in London or 50 miles of London
    */
-  async getEveryPersons(req, res, next) {
+  static async getEveryPersons(req, res, next) {
     try {
       results = await bpdts.getPersons();
     } catch (err) {
-      error = new Error(JSON.stringify(erros));
-      error.status = err.statusCode;
-      return next(error);
+      createError(404);
     }
     const persons = JSON.parse(results);
 
@@ -53,9 +51,7 @@ class userController {
     try {
       londonPersons = await bpdts.getPersons();
     } catch (err) {
-      const error = new Error(JSON.stringify(error));
-      error.status = err.statusCode;
-      return next(error);
+      createError(404);
     }
 
     const EveryPersonInLondon = offLondon.concat(JSON.parse(londonPersons));
@@ -63,3 +59,5 @@ class userController {
     return res.status(200).send(EveryPersonInLondon);
   }
 }
+
+module.exports = userController;
