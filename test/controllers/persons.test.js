@@ -4,8 +4,6 @@ const app = require("../../app");
 
 const data = require('../mockData/data')
 
-const should = chai.should();
-
 chai.use(chaiHttp);
 
 describe("/GET users", () => {
