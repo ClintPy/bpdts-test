@@ -11,7 +11,6 @@ const LONDON_COORDINATES = {
 
 const FIFTY_MILES_IN_METERS = 80467;
 let results;
-let error;
 let londonPersons;
 
 class userController {
@@ -28,7 +27,8 @@ class userController {
     } catch (err) {
       createError(404);
     }
-    const persons = JSON.parse(results);
+
+    const persons = results;
 
     // Iterate through each person, checking whether they are within 50 miles off London.
     // If they are, we add them to the array
@@ -54,10 +54,10 @@ class userController {
       createError(404);
     }
 
-    const EveryPersonInLondon = offLondon.concat(JSON.parse(londonPersons));
+    const EveryPersonInLondon = offLondon.concat(londonPersons);
 
     return res.status(200).send(EveryPersonInLondon);
   }
 }
 
-module.exports = userController;
+module.exports = userController.getEveryPersons;
